@@ -30,9 +30,9 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 * [Express](https://expressjs.com/ko/)
 * [LokiJS](http://lokijs.org)
 
-### 시행착오
+## 시행착오
 
-#### Single File Component(SFC) with TypeScript
+### Single File Component(SFC) with TypeScript
 
 자꾸 이거 빠트려서 애먹었다.. ㅠㅠ
 
@@ -51,7 +51,7 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 </style>
 ```
 
-#### CSS Modules
+### CSS Modules
 
 CSS 모듈을 사용하려고 아래와 같이 설정을 넣었다...
 
@@ -136,7 +136,7 @@ Vue 싱글파일 컴포넌트 작성할 때 아래처럼 일반적으로(?) 사�
 </style>
 ```
 
-#### TS2564: Property '...' has no initializer and is not definitely assigned in the constructor.
+### TS2564: Property '...' has no initializer and is not definitely assigned in the constructor.
 
 TypeScript 2.7 부터 컴파일 옵션 중 `strict: true`일 경우 클래스 속성의 값이 초기화 되어 있어야 한다.
 
