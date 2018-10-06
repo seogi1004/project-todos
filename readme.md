@@ -135,3 +135,38 @@ Vue 싱글파일 컴포넌트 작성할 때 아래처럼 일반적으로(?) 사�
     }
 </style>
 ```
+
+#### TS2564: Property '...' has no initializer and is not definitely assigned in the constructor.
+
+TypeScript 2.7 부터 컴파일 옵션 중 `strict: true`일 경우 클래스 속성의 값이 초기화 되어 있어야 한다.
+
+```typescript
+class Person {
+    firstName: string;
+    lastName: string;
+}
+```
+ 
+위와 같이 작성 하고 컴파일을 하게 되면 TS2564 에러가 발생한다.
+
+1. 해결방법으로는 속성 선언시 `!:`로 선언 하는 방법
+
+```typescript
+class Person {
+    firstName!: string;
+    lastName!: string;
+}
+```
+
+2. 컴파일 설정에서 `strictPropertyInitialization` 값을 `false`로 한다.
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictPropertyInitialization": false
+  }
+}
+```
+
+[Strict Property Initialization Checks in TypeScript 2.7](https://hk.saowen.com/a/496168b33f7312485c463935eda3db511cb06f0f30060d7c57c1e500875c706e)

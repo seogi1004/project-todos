@@ -11,7 +11,9 @@
     "moduleResolution": "node",
     // vue-class-component
     // ECMAScript stage 1 decorators (https://github.com/wycats/javascript-decorators/blob/master/README.md)
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
+    // TypeScript 2.7
+    // TS2564: Property '{property}' has no initializer and is not definitely assigned in the constructor.
     "strictPropertyInitialization": false
   }
 }
