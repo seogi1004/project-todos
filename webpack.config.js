@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        app : './src/index.ts'
+        app : './src/client/index.ts'
     },
     output: {
         filename: '[name].bundle.js',
@@ -61,7 +61,8 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './src/index.html',
+            template: path.join(__dirname, './src/client/index.html'
+            ),
             inject: 'body'
         }),
         new VueLoaderPlugin()

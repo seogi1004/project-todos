@@ -7,7 +7,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop, Emit} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
     @Component
     export default class TodoItem extends Vue {
@@ -17,10 +17,8 @@
 
         isComplete: boolean = this.complete;
 
-        @Emit("remove")
         remove(): void {
-            console.log('-- remove click --');
-            console.log('id:', this.id);
+            this.$el.remove();
         }
 
         changeComplete(): void {

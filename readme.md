@@ -28,7 +28,7 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 ### Third party packages
 
 * [Express](https://expressjs.com/ko/)
-* [LokiJS](http://lokijs.org)
+* [mysql](https://www.npmjs.com/package/mysql)
 
 ## 시행착오
 
