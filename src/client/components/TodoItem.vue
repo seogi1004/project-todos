@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+    import axios from 'axios';
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
 
@@ -18,12 +19,25 @@
         isComplete: boolean = this.complete;
 
         remove(): void {
-            this.$el.remove();
+            axios.delete('/todo/' + this.id)
+                .then(() => {
+                    this.$emit('removed', this.id);
+                })
+                .catch(error => {
+                    // 어떻게 하지?
+                    console.log(error);
+                });
+
         }
 
         changeComplete(): void {
-            console.log("-- change --");
-            console.log(this.isComplete);
+            axios.put('/todo/' + this.id, {
+                title: this.title,
+                complete: this.isComplete
+            }).catch(error => {
+                // 어떻게 하지?
+                console.log(error);
+            });
         }
 
     }
