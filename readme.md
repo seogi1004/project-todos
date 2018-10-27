@@ -170,3 +170,18 @@ class Person {
 ```
 
 [Strict Property Initialization Checks in TypeScript 2.7](https://hk.saowen.com/a/496168b33f7312485c463935eda3db511cb06f0f30060d7c57c1e500875c706e)
+
+### component lists rendered with v-for should have explicit keys
+
+v-for 디렉티브 사용시 :key 속성을 선언하지 않으면 빌드시에 아래와 같은 경고가 난다.
+
+```
+WARNING in ./src/client/components/TodoList.vue?vue&type=template&id=144cd6d2&scoped=true& (./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/client/components/TodoList.vue?vue&type=
+    template&id=144cd6d2&scoped=true&)
+    Module Warning (from ./node_modules/vue-loader/lib/loaders/templateLoader.js):
+    (Emitted value instead of an instance of Error) <todo-item v-for="item in items">: component lists rendered with v-for should have explicit keys. See https://vuejs.org/guide/list.html#key for more info.
+     @ ./src/client/components/TodoList.vue?vue&type=template&id=144cd6d2&scoped=true& 1:0-224 1:0-224
+     @ ./src/client/components/TodoList.vue
+     @ ./src/client/index.ts
+```
+
