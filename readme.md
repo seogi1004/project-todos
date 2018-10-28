@@ -11,7 +11,11 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 * [Documentation &gt; Guide &gt; Output Management](https://webpack.js.org/guides/output-management/)
 * [Documentation &gt; Guide &gt; Development](https://webpack.js.org/guides/development/)
 * [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware)
+
+### Typesciprt
+
 * [TypeScript loader for webpack](https://github.com/TypeStrong/ts-loader)
+* [TypeSearch](https://microsoft.github.io/TypeSearch/)
 
 ### Vue Loader 15
 
@@ -24,6 +28,12 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 * [배우기 &gt; 가이드 &gt; TypeScript 지원 &gt; 클래스 스타일 Vue 컴포넌트](https://kr.vuejs.org/v2/guide/typescript.html#%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%8A%A4%ED%83%80%EC%9D%BC-Vue-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8)
 * [vue-class-component](https://github.com/vuejs/vue-class-component)
 * [vue-property-decorators](https://github.com/kaorun343/vue-property-decorator)
+
+### Design
+
+* [Material Design](https://material.io)
+* [Google Fonts](https://fonts.google.com/)
+* [Vue Material](https://vuematerial.io/)
 
 ### Third party packages
 
