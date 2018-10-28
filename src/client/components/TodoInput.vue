@@ -23,7 +23,7 @@
                 title: this.title
             }).then(res => {
                 this.title = '';
-                // this.$refs.input.focus();
+                (this.$refs.input as HTMLInputElement).focus();
                 // emit
                 this.$emit("added", res.data);
             }).catch(error => {
