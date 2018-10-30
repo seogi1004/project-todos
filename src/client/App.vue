@@ -1,17 +1,14 @@
 <template>
     <v-app>
         <v-toolbar app>
-            <v-btn icon>
-                <v-icon>menu</v-icon>
-            </v-btn>
-            <todo-input />
-            <v-btn icon>
-                <v-icon>more_vert</v-icon>
-            </v-btn>
+            <v-flex xs12 md12>
+                <todo-input/>
+            </v-flex>
         </v-toolbar>
-        <v-content>
+
+        <v-container>
             <todo-list/>
-        </v-content>
+        </v-container>
     </v-app>
 </template>
 
@@ -28,7 +25,6 @@
         }
     })
     export default class App extends Vue {
-
 
     };
 </script>

@@ -4,18 +4,18 @@
 
             <v-layout align-center row fill-height>
 
-                <v-flex class="icon-block">
-                    <v-btn flat icon>
+                <v-flex class="btn-block">
+                    <v-btn flat icon :color="done ? 'green' : 'grey lighten-1'" @click="changeDone">
                         <v-icon>check</v-icon>
                     </v-btn>
                 </v-flex>
 
-                <v-flex xs12 md12>
-                    <h3 :class="done ? 'done' : ''">{{ title }}</h3>
+                <v-flex md12 xs12>
+                    <todo-title xs12 md12 :done="done" :title="item.title" @edited="onTitleChanged"/>
                 </v-flex>
 
-                <v-flex class="icon-block">
-                    <v-btn flat icon color="red">
+                <v-flex class="btn-block">
+                    <v-btn flat icon color="red" @click="remove">
                         <v-icon>close</v-icon>
                     </v-btn>
                 </v-flex>
@@ -28,17 +28,21 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop, Emit, Watch} from 'vue-property-decorator';
+    import {Component, Prop, Emit} from 'vue-property-decorator';
+    import TodoTitle from './TodoTitle';
     import {Todo} from '../model/Todo';
 
-    @Component
+    @Component({
+        components: {
+            TodoTitle
+        }
+    })
     export default class TodoItem extends Vue {
         // prop
         @Prop() item: Todo;
         // data
         title: string = this.item.title;
         done: boolean = this.item.done;
-        textDecoration: string = 'none';
 
         @Emit('edited')
         edited(): Todo {
@@ -55,27 +59,21 @@
             return this.item.id;
         }
 
-        @Watch('done')
-        onDoneChanged(): void {
-            this.textDecoration = this.done ? 'line-through' : 'none';
+        onTitleChanged(title: string): void {
+            this.title = title;
             this.edited();
         }
 
-        mounted(): void {
-            this.onDoneChanged();
+        changeDone(): void {
+            this.done = !this.done;
+            this.edited();
         }
 
     }
 </script>
 
 <style scoped>
-    .done {
-        text-decoration: line-through;
-        color: #8e8e8e;
-        font-style: italic;
-    }
-
-    .icon-block {
+    .btn-block {
         width: 52px;
     }
 </style>

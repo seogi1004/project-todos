@@ -1,11 +1,8 @@
 <template>
-    <v-flex>
-        <v-form ref="form" @submit.prevent="submit">
-            <v-text-field solo-inverted flat hide-details
-                          label="Please enter your work" prepend-inner-icon="add_box"
-                          ref="input" v-model="title" />
-        </v-form>
-    </v-flex>
+    <v-form ref="form" @submit.prevent="submit">
+        <v-text-field hide-details clearable placeholder="할 일을 입력하세요"
+                      ref="input" v-model="title"/>
+    </v-form>
 </template>
 
 <script lang="ts">
@@ -17,6 +14,7 @@
     export default class TodoInput extends Vue {
         // data
         title: string = '';
+
         // method
         submit(): void {
             if (!this.title) {
@@ -29,6 +27,7 @@
             this.title = '';
             this.input.focus();
         }
+
         // computed
         get input(): HTMLInputElement {
             return this.$refs.input as HTMLInputElement;
@@ -38,5 +37,7 @@
 </script>
 
 <style scoped>
-
+    .v-text-field {
+        padding-top: 0px;
+    }
 </style>

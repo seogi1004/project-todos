@@ -1,8 +1,15 @@
 <template>
-    <v-container>
+    <v-content>
         <!-- https://vuejs.org/v2/guide/list.html#key -->
-        <todo-item v-for="item in items" :key="item.id" :item="item" @edited="edited" @removed="removed"/>
-    </v-container>
+        <todo-item v-if="items.length" v-for="item in items" :key="item.id" :item="item" @edited="edited"
+                   @removed="removed"/>
+        <v-layout v-if="!items.length" align-center justify-center mt-4 class="text-xs-center">
+            <v-flex xs12 sm8 md4>
+                <v-icon class="big">error_outline</v-icon>
+                <h2>할일 없냐?</h2>
+            </v-flex>
+        </v-layout>
+    </v-content>
 </template>
 
 <script lang="ts">
@@ -73,5 +80,11 @@
 </script>
 
 <style scoped>
+    .empty {
+        font-weight: normal;
+    }
 
+    .big {
+        font-size: 120px;
+    }
 </style>
