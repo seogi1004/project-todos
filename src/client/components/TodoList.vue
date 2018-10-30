@@ -1,65 +1,77 @@
 <template>
-    <div>
-        <h2>{{name}}'s Todo List</h2>
-        <todo-input @added="added"/>
-        <div clas="list-box">
-            <!-- https://vuejs.org/v2/guide/list.html#key -->
-            <todo-item v-for="item in items"
-                       :key="item.id" :id="item.id" :title="item.title" :complete="item.complete" :order="item.order"
-                       @removed="removed"/>
-        </div>
-    </div>
+    <v-container>
+        <!-- https://vuejs.org/v2/guide/list.html#key -->
+        <todo-item v-for="item in items" :key="item.id" :item="item" @edited="edited" @removed="removed"/>
+    </v-container>
 </template>
 
 <script lang="ts">
     import axios from 'axios';
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
-    import TodoInput from './TodoInput';
+    import {Component} from 'vue-property-decorator';
     import TodoItem from './TodoItem';
-
-    export interface Todo {
-        id: string,
-        title: string,
-        complete: boolean,
-        order: number
-    }
+    import {Todo} from '../model/Todo';
+    import bus from '../EventBus';
 
     @Component({
         components: {
-            TodoInput,
-            TodoItem: TodoItem
+            TodoItem
         }
     })
     export default class TodoList extends Vue {
-        @Prop({default: 'Antop'}) name: string;
-
+        // data
         items: Array<Todo> = [];
 
-        added(item: Todo): void {
-            this.items.unshift(item);
+        // method
+        added(title: string): void {
+            axios.post('/todo', {
+                title: title
+            }).then(res => {
+                this.items.unshift(res.data);
+            }).catch(e => {
+                console.log(e);
+            });
         }
 
+        // method
+        edited(item: Todo): void {
+            axios.put('/todo/' + item.id, {
+                title: item.title,
+                done: item.done
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+
+        // method
         removed(id: string): void {
-            //TODO 받은 id 로 배열에서 찾아서 지우는 로직 개선하면 좋을듯
-            this.items = this.items.filter(v => v.id != id);
+            axios.delete('/todo/' + id)
+                .then(() => {
+                    // TODO 받은 id 로 배열에서 찾아서 지우는 로직 개선하면 좋을듯
+                    this.items = this.items.filter(v => v.id != id);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
         }
 
+        // lifecycle hook
         mounted(): void {
             axios.get('/todo')
                 .then(res => {
                     this.items = res.data;
                 })
-                .catch(error => {
-                    // 어떻게 하지?
-                    console.log(error);
+                .catch(e => {
+                    console.log(e);
                 });
+
+            bus.$on('added', (title: string) => {
+                this.added(title);
+            });
         }
     };
 </script>
 
 <style scoped>
-    h2 {
-        color: green;
-    }
+
 </style>

@@ -10,7 +10,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('../../webpack.config.js');
 const compiler = webpack(config);
 
-const mysql = require('./mysql');
+const mysql = require('./db/mysql');
 
 const app = express();
 app.use(morgan('combined'));
@@ -23,6 +23,8 @@ app.use(bodyParser.json());
 app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath
 }));
+// hot reload
+app.use(require("webpack-hot-middleware")(compiler));
 
 // router
 app.use('/todo', require('./router/todo'));

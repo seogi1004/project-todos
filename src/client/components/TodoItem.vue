@@ -1,52 +1,71 @@
 <template>
-    <div>
-        <input type="checkbox" v-model="isComplete" @change="changeComplete">{{title}}
-        <span :class="$style.link" @click="remove">x</span>
-    </div>
+    <v-card class="mt-1">
+        <v-container pa-0>
+            <v-layout align-center row fill-height>
+                <v-flex xs1 class="text-xs-left">
+                    <v-btn flat icon>
+                        <v-icon>check</v-icon>
+                    </v-btn>
+                </v-flex>
+                <v-flex xs10>
+                    <h3 :class="done ? 'done' : ''">{{ title }}</h3>
+                </v-flex>
+                <v-flex xs1 class="text-xs-right">
+                    <v-btn flat icon color="red">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-card>
 </template>
 
 <script lang="ts">
-    import axios from 'axios';
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
+    import {Component, Prop, Emit, Watch} from 'vue-property-decorator';
+    import {Todo} from '../model/Todo';
 
     @Component
     export default class TodoItem extends Vue {
-        @Prop() id: string;
-        @Prop({default: false}) complete: boolean;
-        @Prop({default: 'No Title'}) title: string;
+        // prop
+        @Prop() item: Todo;
+        // data
+        title: string = this.item.title;
+        done: boolean = this.item.done;
+        textDecoration: string = 'none';
 
-        isComplete: boolean = this.complete;
-
-        remove(): void {
-            axios.delete('/todo/' + this.id)
-                .then(() => {
-                    this.$emit('removed', this.id);
-                })
-                .catch(error => {
-                    // 어떻게 하지?
-                    console.log(error);
-                });
-
+        @Emit('edited')
+        edited(): Todo {
+            return {
+                id: this.item.id,
+                title: this.title,
+                done: this.done,
+                order: this.item.order
+            };
         }
 
-        changeComplete(): void {
-            axios.put('/todo/' + this.id, {
-                title: this.title,
-                complete: this.isComplete
-            }).catch(error => {
-                // 어떻게 하지?
-                console.log(error);
-            });
+        @Emit('removed')
+        remove(): string {
+            return this.item.id;
+        }
+
+        @Watch('done')
+        onDoneChanged(): void {
+            this.textDecoration = this.done ? 'line-through' : 'none';
+            this.edited();
+        }
+
+        mounted(): void {
+            this.onDoneChanged();
         }
 
     }
 </script>
 
-<style scoped module>
-    .link {
-        cursor: pointer;
-        font-weight: bold;
-        color: red;
+<style scoped>
+    .done {
+        text-decoration: line-through;
+        color: #8e8e8e;
+        font-style: italic;
     }
 </style>

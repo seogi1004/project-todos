@@ -33,12 +33,13 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 
 * [Material Design](https://material.io)
 * [Google Fonts](https://fonts.google.com/)
-* [Vue Material](https://vuematerial.io/)
+* [Vuetify](https://vuetifyjs.com/ko)
 
 ### Third party packages
 
 * [Express](https://expressjs.com/ko/)
-* [mysql](https://www.npmjs.com/package/mysql)
+* [bluebird](http://bluebirdjs.com)
+* [Promise-mysql](https://www.npmjs.com/package/promise-mysql)
 
 ## 시행착오
 
@@ -65,7 +66,7 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 
 CSS 모듈을 사용하려고 아래와 같이 설정을 넣었다...
 
-```javascript
+```
 {
     test: /\.css$/,
     use: [

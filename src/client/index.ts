@@ -1,14 +1,12 @@
-import Vue from 'vue'
-import TodoListComponent from './components/TodoList.vue';
+import Vue from 'vue';
+import App from './App.vue';
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css';
+
+Vue.use(Vuetify);
 
 new Vue({
     el: '#app',
-    template: `
-    <div>
-      <todo-list-component />
-    </div>
-    `,
-    components: {
-        TodoListComponent: TodoListComponent
-    }
+    components: {App},
+    template: '<App/>'
 });
