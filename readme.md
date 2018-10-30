@@ -31,9 +31,10 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 
 ### Design
 
-* [Material Design](https://material.io)
-* [Google Fonts](https://fonts.google.com/)
 * [Vuetify](https://vuetifyjs.com/ko)
+* [Material Design](https://material.io)
+* [Metrial Design Icons](http://google.github.io/material-design-icons/)
+
 
 ### Third party packages
 
@@ -75,8 +76,8 @@ CSS 모듈을 사용하려고 아래와 같이 설정을 넣었다...
             loader: 'css-loader',
             options: {
                 importLoaders: 1,
+                // 아래 두 개 주목!
                 modules: true,
-                // 요거 주목
                 localIdentName: '[local]_[hash:base64:8]'
             }
         }
