@@ -1,21 +1,27 @@
 <template>
     <v-card class="mt-1">
         <v-container pa-0>
+
             <v-layout align-center row fill-height>
-                <v-flex xs1 class="text-xs-left">
+
+                <v-flex class="icon-block">
                     <v-btn flat icon>
                         <v-icon>check</v-icon>
                     </v-btn>
                 </v-flex>
-                <v-flex xs10>
+
+                <v-flex xs12 md12>
                     <h3 :class="done ? 'done' : ''">{{ title }}</h3>
                 </v-flex>
-                <v-flex xs1 class="text-xs-right">
+
+                <v-flex class="icon-block">
                     <v-btn flat icon color="red">
                         <v-icon>close</v-icon>
                     </v-btn>
                 </v-flex>
+
             </v-layout>
+
         </v-container>
     </v-card>
 </template>
@@ -67,5 +73,9 @@
         text-decoration: line-through;
         color: #8e8e8e;
         font-style: italic;
+    }
+
+    .icon-block {
+        width: 52px;
     }
 </style>
