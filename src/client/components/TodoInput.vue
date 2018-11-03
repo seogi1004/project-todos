@@ -1,6 +1,6 @@
 <template>
-    <v-form ref="form" @submit.prevent="submit">
-        <v-text-field hide-details clearable placeholder="할 일을 입력하세요"
+    <v-form ref="form" @submit.prevent="_submit">
+        <v-text-field hide-details clearable placeholder="할 일을 입력하세요" class="v-text-field"
                       ref="input" v-model="title"/>
     </v-form>
 </template>
@@ -16,7 +16,7 @@
         title: string = '';
 
         // method
-        submit(): void {
+        _submit(): void {
             if (!this.title) {
                 return;
             }

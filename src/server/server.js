@@ -10,7 +10,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('../../webpack.config.js');
 const compiler = webpack(config);
 
-const mysql = require('./db/mysql');
+const mysql = require('./db/sqlite3');
 
 const app = express();
 app.use(morgan('combined'));

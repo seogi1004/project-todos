@@ -6,7 +6,6 @@ import 'typeface-roboto';
 // https://vuetifyjs.com/en/framework/icons#introduction
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
-
 Vue.use(Vuetify);
 
 new Vue({
