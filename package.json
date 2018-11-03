@@ -43,12 +43,11 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
-    "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.5",
     "node-color-log": "^2.1.2",
+    "nodemon": "^1.18.5",
     "sqlite3": "^4.0.3",
     "uuid": "^3.3.2"
   }

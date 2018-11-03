@@ -6,7 +6,7 @@
 
 # Todos project
 
-Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝트.
+Webpack + TypeScript + Vue.js + Express 연습 해보는 Todo List 프로젝트.
 
 배포에 대한 사항은 고려되어 있지 않은 소소한 개발 연습 프로젝트입니다.
 
@@ -66,7 +66,6 @@ http://localhost:3000/
 
 * [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable)
 * [Express](https://expressjs.com/ko/)
-* [bluebird](http://bluebirdjs.com)
 * [SQLite Node.js](http://www.sqlitetutorial.net/sqlite-nodejs)
 
 ## 시행착오
