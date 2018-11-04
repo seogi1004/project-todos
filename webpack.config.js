@@ -56,7 +56,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            vue$: 'vue/dist/vue.esm.js',
+            'vue$': 'vue/dist/vue.esm.js',
             'vuetify/components': 'vuetify/es5/components/'
         },
         extensions: ['.ts', '.js', '.vue']

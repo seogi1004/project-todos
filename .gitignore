@@ -67,3 +67,10 @@ package-lock.json
 
 # sqlite cache
 *.db-journal
+
+# cypress
+test/screenshots
+test/videos
+# OR, if you're using the default config
+cypress/screenshots
+cypress/videos

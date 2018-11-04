@@ -86,13 +86,13 @@
                     // 질문 상태로 변경
                     this.removeStatus = RemoveState.Question;
                     // 1.5초 후 대기 상태로 돌아는 타이머 시작
-                    this.timer = setTimeout(() => {
+                    this.timer = window.setTimeout(() => {
                         this.removeStatus = RemoveState.Waiting;
                     }, 1500);
                     break;
                 case RemoveState.Question:
                     // 타이머 종료
-                    clearTimeout(this.timer);
+                    window.clearTimeout(this.timer);
                     // 삭제 상태 완료로 변경
                     this.removeStatus = RemoveState.Complete;
                     // removed 이벤트 발생
