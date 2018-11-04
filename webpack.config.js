@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        app : './src/client/index.ts'
+        app: './src/client/index.ts'
     },
     output: {
         filename: '[name].bundle.js',
@@ -41,19 +41,23 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            // enable CSS Modules
-                            modules: true,
-                            // customize generated class names
-                            localIdentName: '[local]_[hash:base64:8]'
+                            modules: false
                         }
                     }
+                ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    'file-loader'
                 ]
             }
         ]
     },
     resolve: {
         alias: {
-            vue$: 'vue/dist/vue.esm.js'
+            vue$: 'vue/dist/vue.esm.js',
+            'vuetify/components': 'vuetify/es5/components/'
         },
         extensions: ['.ts', '.js', '.vue']
     },
@@ -61,8 +65,8 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.join(__dirname, './src/client/index.html'
-            ),
+            template: path.join(__dirname, './src/client/index.html'),
+            favicon: './assets/favicon.ico',
             inject: 'body'
         }),
         new VueLoaderPlugin()

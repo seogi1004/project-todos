@@ -1,19 +1,15 @@
 import {shallowMount} from '@vue/test-utils'
-import TodoItem from '../../../src/client/components/TodoItem.vue'
+import TodoTitle from '../../../src/client/components/TodoTitle.vue'
 
-describe('TodoItem.vue', () => {
-    const wrapper = shallowMount(TodoItem, {
-        propsData: {
-            title: 'Go to the bank',
-            complete: true
-        }
-    })
+describe('TodoTitle.vue', () => {
+    test('할일 추가 체크', () => {
+        const wrapper = shallowMount(TodoTitle, {
+            propsData: {
+                title: 'Hello',
+                done: 'done'
+            }
+        });
 
-    test('타이틀 체트', () => {
-        expect(wrapper.text()).toContain('Go to the bank')
-    })
-
-    test('체크 상태 체크', () => {
-        expect(wrapper.find('input').element.checked).toBe(true)
+        expect(wrapper.find('h3').text()).toEqual('Hello')
     })
 })

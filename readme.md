@@ -1,6 +1,30 @@
+[![GitHub issues](https://img.shields.io/github/issues/antop-dev/project-todos.svg)](https://github.com/antop-dev/project-todos/issues)
+[![GitHub forks](https://img.shields.io/github/forks/antop-dev/project-todos.svg)](https://github.com/antop-dev/project-todos/network)
+[![GitHub stars](https://img.shields.io/github/stars/antop-dev/project-todos.svg)](https://github.com/antop-dev/project-todos/stargazers)
+[![GitHub license](https://img.shields.io/github/license/antop-dev/project-todos.svg)](https://github.com/antop-dev/project-todos/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/antop-dev/project-todos.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fantop-dev%2Fproject-todos)
+
 # Todos project
 
-Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝트
+Webpack + TypeScript + Vue.js + Express 연습 해보는 Todo List 프로젝트.
+
+배포에 대한 사항은 고려되어 있지 않은 소소한 개발 연습 프로젝트입니다.
+
+## Getting started
+
+```
+git clone https://github.com/antop-dev/project-todos.git
+cd project-todos
+npm install
+```
+
+```
+npm run serve
+```
+
+```
+http://localhost:3000/
+```
 
 ## References
 
@@ -11,7 +35,14 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 * [Documentation &gt; Guide &gt; Output Management](https://webpack.js.org/guides/output-management/)
 * [Documentation &gt; Guide &gt; Development](https://webpack.js.org/guides/development/)
 * [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware)
+
+### Typesciprt
+
 * [TypeScript loader for webpack](https://github.com/TypeStrong/ts-loader)
+* [TypeSearch](https://microsoft.github.io/TypeSearch/)
+* [How to use a third party library in Typescript with or without its type definition file?](http://www.albertgao.xyz/2016/08/10/how-to-use-a-third-party-library-in-typescript-with-or-without-its-type-definition-file/)
+* [Any Plans on including TypeScript definitions?](https://github.com/SortableJS/Vue.Draggable/issues/379)
+* [Sortable &#35;options](https://github.com/RubaXa/Sortable#options)
 
 ### Vue Loader 15
 
@@ -25,10 +56,17 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 * [vue-class-component](https://github.com/vuejs/vue-class-component)
 * [vue-property-decorators](https://github.com/kaorun343/vue-property-decorator)
 
+### Design
+
+* [Vuetify](https://vuetifyjs.com/ko)
+* [Material Design](https://material.io)
+* [Metrial Design Icons](http://google.github.io/material-design-icons/)
+
 ### Third party packages
 
+* [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable)
 * [Express](https://expressjs.com/ko/)
-* [mysql](https://www.npmjs.com/package/mysql)
+* [SQLite Node.js](http://www.sqlitetutorial.net/sqlite-nodejs)
 
 ## 시행착오
 
@@ -55,7 +93,7 @@ Webpack + TypeScript + Vue.js 조합으로 연습해보는 Todo List 프로젝�
 
 CSS 모듈을 사용하려고 아래와 같이 설정을 넣었다...
 
-```javascript
+```
 {
     test: /\.css$/,
     use: [
@@ -64,8 +102,8 @@ CSS 모듈을 사용하려고 아래와 같이 설정을 넣었다...
             loader: 'css-loader',
             options: {
                 importLoaders: 1,
+                // 아래 두 개 주목!
                 modules: true,
-                // 요거 주목
                 localIdentName: '[local]_[hash:base64:8]'
             }
         }
