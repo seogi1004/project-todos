@@ -11,6 +11,9 @@
     "experimentalDecorators": true,
     // TypeScript 2.7
     // TS2564: Property '{property}' has no initializer and is not definitely assigned in the constructor.
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true
   }
 }
