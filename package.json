@@ -9,7 +9,6 @@
     "test": "jest",
     "e2e:open": "cypress open",
     "e2e": "cypress run"
-
   },
   "jest": {
     "transform": {
