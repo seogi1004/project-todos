@@ -1,65 +1,149 @@
 <template>
-    <div>
-        <h2>{{name}}'s Todo List</h2>
-        <todo-input @added="added"/>
-        <div clas="list-box">
-            <!-- https://vuejs.org/v2/guide/list.html#key -->
-            <todo-item v-for="item in items"
-                       :key="item.id" :id="item.id" :title="item.title" :complete="item.complete" :order="item.order"
-                       @removed="removed"/>
-        </div>
-    </div>
+    <v-content>
+        <!-- https://vuejs.org/v2/guide/list.html#key -->
+        <draggable v-model="items" :options="sortable" @end="_dragEnd">
+            <transition-group>
+                <todo-item v-if="items.length" v-for="item in items" :key="item.id" :item="item"
+                           @edited="_edited" @removed="_removed"/>
+            </transition-group>
+        </draggable>
+        <v-layout v-if="!items.length" align-center justify-center mt-4 class="text-xs-center">
+            <v-flex xs12 sm8 md4>
+                <v-icon class="big">error_outline</v-icon>
+                <h2>할일 없냐?</h2>
+            </v-flex>
+        </v-layout>
+    </v-content>
 </template>
 
 <script lang="ts">
     import axios from 'axios';
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
-    import TodoInput from './TodoInput';
+    import {Component} from 'vue-property-decorator';
     import TodoItem from './TodoItem';
-
-    export interface Todo {
-        id: string,
-        title: string,
-        complete: boolean,
-        order: number
-    }
+    import {Todo} from '../model/Todo';
+    import bus from '../EventBus';
+    import draggable from 'vuedraggable';
 
     @Component({
         components: {
-            TodoInput,
-            TodoItem: TodoItem
+            TodoItem,
+            draggable
         }
     })
     export default class TodoList extends Vue {
-        @Prop({default: 'Antop'}) name: string;
 
         items: Array<Todo> = [];
 
-        added(item: Todo): void {
-            this.items.unshift(item);
+        sortable: object = {
+            name: 'todo',
+            handle: '.handle-item'
+        };
+
+        /**
+         * 할 일을 하나 추가한다.
+         * @param title 할 일 제목
+         * @public
+         * */
+        addTodo(title: string): void {
+            axios.post('/todo', {
+                title: title
+            }).then(res => {
+                // 배열 맨 앞에 추가
+                this.items.unshift(res.data);
+            }).catch(e => {
+                bus.$emit('error', e);
+            });
         }
 
-        removed(id: string): void {
-            //TODO 받은 id 로 배열에서 찾아서 지우는 로직 개선하면 좋을듯
-            this.items = this.items.filter(v => v.id != id);
-        }
-
-        mounted(): void {
-            axios.get('/todo')
-                .then(res => {
-                    this.items = res.data;
-                })
-                .catch(error => {
-                    // 어떻게 하지?
-                    console.log(error);
+        /**
+         * TodoItem 으로부터 수정되었다는 이벤트(edited)가 발생하면 처리한다.
+         * @param item Todo
+         * @private
+         */
+        _edited(item: Todo): void {
+            axios.put('/todo/' + item.id, {
+                title: item.title,
+                done: item.done,
+                order: item.order
+            }).then(() => {
+                this.items.filter(v => v.id === item.id).forEach(v => {
+                    v.title = item.title;
+                    v.done = item.done;
                 });
+            }).catch(e => {
+                bus.$emit('error', e);
+            });
+        }
+
+        /**
+         * TodoItem 컴포넌트에서 삭제되었다는 이벤트(removed)가 발생하면 처리한다.
+         * @param id 할 일 고유 아이디
+         * @private
+         */
+        _removed(id: string): void {
+            axios.delete('/todo/' + id)
+                .then(() => {
+                    // TODO 받은 id 로 배열에서 찾아서 지우는 로직 개선하면 좋을듯
+                    this.items = this.items.filter(v => v.id != id);
+                })
+                .catch(e => {
+                    bus.$emit('error', e);
+                });
+        }
+
+        _dragEnd(e: any): void {
+            if (e.oldIndex === e.newIndex) {
+                // 이동이 없었을 경우 아무것도 하지 않음
+                return;
+            }
+
+            // oldIndex -> newIndex
+            let begin: number = e.newIndex < e.oldIndex ? e.newIndex : e.oldIndex;
+            let end: number = e.newIndex > e.oldIndex ? e.newIndex : e.oldIndex;
+            // order 값만 추출하여 내림차순 정렬
+            const orders: number[] = this.items.slice(begin, end + 1).map(v => v.order);
+            orders.sort((x: number, y: number) => y - x);
+            // 정렬된 order 값으로 대체
+            let j: number = 0;
+            for (let i: number = begin; i <= end; i++) {
+                const todo: Todo = this.items[i];
+                todo.order = orders[j++];
+                // to server api
+                this._edited(todo);
+            }
+        }
+
+        /**
+         * 인스턴스가 작덩된 후. $el 사용 불가
+         */
+        created(): void {
+            // TodoInput 컴포넌트 -> EventBus 로부터 할일 추가 이벤트(added)가 발생하면 처리한다.
+            bus.$on('added', (title: string) => {
+                this.addTodo(title);
+            });
+        }
+
+        /**
+         * Vue 인스턴스가 마운트 되었을 때
+         */
+        mounted(): void {
+            this.$nextTick(() => {
+                axios.get('/todo')
+                    .then(res => {
+                        this.items = res.data;
+                    })
+                    .catch(e => {
+                        bus.$emit('error', e);
+                    });
+            });
+
         }
     };
 </script>
 
 <style scoped>
-    h2 {
-        color: green;
+    .big {
+        font-size: 120px;
     }
 </style>
